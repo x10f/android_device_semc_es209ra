@@ -18,15 +18,16 @@
 
 //#define CAMHW_DEBUG
 
+#define CAMHW_DEBUG
+
 #ifdef CAMHW_DEBUG
 #define ALOG_NDEBUG 1
 #endif
 
 #define SCRITCH_OFF 0
 
-#define ALOG_TAG "SemcCameraHardware"
+#define LOG_TAG "SemcCameraHardware"
 #include <cutils/log.h>
-#define CAMHW_DEBUG
 
 #ifndef CAMHW_DEBUG
 #undef ALOGD
@@ -38,6 +39,9 @@
 #define ALOGI(...) ((void)0)
 #define ALOGD(...) ((void)0)
 #endif
+
+#undef ALOGV
+#define ALOGV ALOGD
 #include "SemcCameraHardware.h"
 
 #include <utils/Errors.h>
@@ -474,7 +478,7 @@ setparam_initialize_t initial_setting_value[] = {
 
     { CameraParameters::KEY_ZOOM,                               "1"},
     { CameraParameters::KEY_ZOOM_SUPPORTED,                     "true"},                      
-    { CameraParameters::KEY_ZOOM_RATIOS,                        "100,200,250,300,400, 500, 600, 750"},
+    { CameraParameters::KEY_ZOOM_RATIOS,                        "100,200,250,300,400,500,600,750"},
     { CameraParameters::KEY_MAX_NUM_DETECTED_FACES_SW,          "1"},
     { CameraParameters::KEY_SUPPORTED_FACE_DETECTION,           "true"},
     { CameraParameters::KEY_FACE_DETECTION,                     CameraParameters::FACE_DETECTION_OFF},
@@ -524,6 +528,7 @@ exifinfo_iso_t iso_record_value[] = {
 
 static bool parameter_string_initialized = false;
 static String8 preview_size_values;
+static String8 video_size_values;
 static String8 picture_size_values;
 static String8 antibanding_values;
 static String8 effect_values;
@@ -929,6 +934,9 @@ void SemcCameraHardware::initDefaultParameters()
         preview_size_values = create_sizes_str(
             supportedPreviewSizes, previewSizeCount);
 
+		video_size_values = create_sizes_str(
+			video_sizes, sizeof(video_sizes));
+
         picture_size_values = create_sizes_str(
                 picture_sizes, PICTURE_SIZE_COUNT_SEMC);
 
@@ -993,7 +1001,7 @@ void SemcCameraHardware::initDefaultParameters()
                     preview_size_values.string());
     //Set Video Keys
     mParameters.set(CameraParameters::KEY_SUPPORTED_VIDEO_SIZES,
-                    preview_size_values.string());
+                    video_size_values.string());
 
     mParameters.set(CameraParameters::KEY_SUPPORTED_PICTURE_SIZES,
                     picture_size_values.string());
@@ -1037,10 +1045,8 @@ void SemcCameraHardware::initDefaultParameters()
     mParameters.setFloat(CameraParameters::KEY_VERTICAL_VIEW_ANGLE,
                     CAMERA_VERTICAL_VIEW_ANGLE_DEFAULT);
 
-    int maxZoom;
-    native_get_maxzoom(mCameraControlFd, &maxZoom);
 
-    ALOGD("%s FOUND mAX ZOOM %d", __FUNCTION__, maxZoom);
+    //ALOGD("%s FOUND mAX ZOOM %d", __FUNCTION__, maxZoom);
 
     mUseOverlay = useOverlay();
 
@@ -2304,7 +2310,7 @@ static char dateTime[20];
 static rat_t altitude;
 static char maker[PROPERTY_VALUE_MAX];
 static char model[PROPERTY_VALUE_MAX];
-static char desc[20];
+static char desc[40];
 static char makernote[] = {0xFF, 0xFF, 0xFF, 0xFF};
 static char usercomment[] = {0xFF, 0xFF, 0xFF, 0xFF};
 static uint8_t gps_id[] = {2,2,0,0};
@@ -8542,23 +8548,30 @@ void SemcCameraHardware::setExifParameters()
     memset(dateTime, 0x00, sizeof(dateTime));
     memset(desc, 0x00, sizeof(desc));
 
+	ALOGD("%s before desc", __func__);
+
     /* 0th IFD TIFF Tags */
     /* description */
-    snprintf(desc, strlen("scritch007 camera lib"), "scritch007 camera_lib");
+    snprintf(desc, strlen("scritch007 camera_lib"), "scritch007 camera_lib");
     addExifTag(EXIFTAGID_IMAGE_DESCRIPTION, EXIF_ASCII, (strlen(desc)+2), 1, (void *)desc);
 
+	ALOGD("%s before get ro.product.brand", __func__);
     /* maker */
     property_get("ro.product.brand",maker,"");
     if (strlen(maker) >= 1) {
         addExifTag(EXIFTAGID_EXIF_CAMERA_MAKER, EXIF_ASCII, (strlen(maker))+1, 1, (void *)maker);
     }
 
+
+	ALOGD("%s before ro.product.device", __func__);
     /* model */
     property_get("ro.product.device",model,"");
     if (strlen(model) >= 1) {
         addExifTag(EXIFTAGID_EXIF_CAMERA_MODEL, EXIF_ASCII, (strlen(model))+1, 1, (void *)model);
     }
 
+
+	ALOGD("%s before rotation", __func__);
     /* rotation */
     int rot = mParameters.getInt(CameraParameters::KEY_ROTATION);
     if (rot == 90) {

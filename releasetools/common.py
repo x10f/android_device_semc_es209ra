@@ -500,7 +500,7 @@ def ParseOptions(argv,
   try:
     opts, args = getopt.getopt(
         argv, "hvp:s:x:" + extra_opts,
-        ["help", "verbose", "path=", "device_specific=", "extra="] +
+        ["help", "verbose", "motd", "path=", "device_specific=", "extra="] +
           list(extra_long_opts))
   except getopt.GetoptError, err:
     Usage(docstring)
@@ -522,6 +522,8 @@ def ParseOptions(argv,
     elif o in ("-x", "--extra"):
       key, value = a.split("=", 1)
       OPTIONS.extras[key] = value
+    elif o in ("--motd"):
+        pass
     else:
       if extra_option_handler is None or not extra_option_handler(o, a):
         assert False, "unknown option \"%s\"" % (o,)

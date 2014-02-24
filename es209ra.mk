@@ -72,41 +72,23 @@ PRODUCT_COPY_FILES += \
     device/semc/es209ra/prebuilt/bootrec:root/sbin/bootrec \
     device/semc/es209ra/prebuilt/bootrec-device:root/sbin/bootrec-device \
     device/semc/es209ra/recovery.fstab:root/recovery.fstab \
-    device/semc/es209ra/prebuilt/vold.fstab:system/etc/vold.fstab \
+	device/semc/es209ra/prebuilt/fstab.es209ra:root/fstab.es209ra \
     device/semc/es209ra/prebuilt/initlogo.rle:root/initlogo.rle
 
 
 #WIFI modules and configs
 PRODUCT_COPY_FILES += \
-    device/semc/es209ra/prebuilt/10dnsconf:system/etc/init.d/10dnsconf \
-    device/semc/es209ra/prebuilt/10regcode:system/etc/init.d/10regcode \
-    device/semc/es209ra/prebuilt/10hostapconf:system/etc/init.d/10hostapconf \
-    device/semc/es209ra/prebuilt/reg_code:system/etc/wifi/reg_code \
-    device/semc/es209ra/prebuilt/ar6000.ko:root/modules/ar6000.ko
+    device/semc/es209ra/config/10dnsconf:system/etc/init.d/10dnsconf \
+    device/semc/es209ra/config/10regcode:system/etc/init.d/10regcode \
+    device/semc/es209ra/config/10hostapconf:system/etc/init.d/10hostapconf \
+	device/semc/es209ra/config/hostapd.conf:system/etc/wifi/hostapd.conf \
+    device/semc/es209ra/prebuilt/reg_code:system/etc/wifi/reg_code 
+#\
+#    device/semc/es209ra/prebuilt/ar6000.ko:system/lib/modules/ar6000.ko
 
 #recovery resources
 PRODUCT_COPY_FILES += \
-    bootable/recovery/res/images/icon_firmware_error.png:root/res/images/icon_firmware_error.png \
-    bootable/recovery/res/images/icon_firmware_install.png:root/res/images/icon_firmware_install.png \
-    bootable/recovery/res/images/icon_clockwork.png:root/res/images/icon_clockwork.png \
-    bootable/recovery/res/images/icon_error.png:root/res/images/icon_error.png \
-    bootable/recovery/res/images/icon_installing.png:root/res/images/icon_installing.png \
-    bootable/recovery/res/images/icon_installing_overlay01.png:root/res/images/icon_installing_overlay01.png \
-    bootable/recovery/res/images/icon_installing_overlay02.png:root/res/images/icon_installing_overlay02.png \
-    bootable/recovery/res/images/icon_installing_overlay03.png:root/res/images/icon_installing_overlay03.png \
-    bootable/recovery/res/images/icon_installing_overlay04.png:root/res/images/icon_installing_overlay04.png \
-    bootable/recovery/res/images/icon_installing_overlay05.png:root/res/images/icon_installing_overlay05.png \
-    bootable/recovery/res/images/icon_installing_overlay06.png:root/res/images/icon_installing_overlay06.png \
-    bootable/recovery/res/images/icon_installing_overlay07.png:root/res/images/icon_installing_overlay07.png \
-    bootable/recovery/res/images/indeterminate01.png:root/res/images/indeterminate01.png \
-    bootable/recovery/res/images/indeterminate02.png:root/res/images/indeterminate02.png \
-    bootable/recovery/res/images/indeterminate03.png:root/res/images/indeterminate03.png \
-    bootable/recovery/res/images/indeterminate04.png:root/res/images/indeterminate04.png \
-    bootable/recovery/res/images/indeterminate05.png:root/res/images/indeterminate05.png \
-    bootable/recovery/res/images/indeterminate06.png:root/res/images/indeterminate06.png \
-    bootable/recovery/res/images/progress_empty.png:root/res/images/progress_empty.png \
-    bootable/recovery/res/images/progress_fill.png:root/res/images/progress_fill.png \
-    bootable/recovery/res/images/stitch.png:root/res/images/stitch.png
+    bootable/recovery/res/images/*:root/res/images/*
 
 #Framework permissions
 PRODUCT_COPY_FILES += \
@@ -153,8 +135,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     hwui.disable_vsync=true \
     debug.composition.type=mdp \
     debug.sf.hw=1 \
-    persist.sys.usb.config=mass_storage \
-    ro.config.disable_hw_accel=true
+    persist.sys.usb.config=mass_storage,adb \
+    persist.service.adb.enable=1 \
+    sys.usb.config=mass_storage,adb 
 
 
 PRODUCT_PROPERTY_OVERRIDES += \
