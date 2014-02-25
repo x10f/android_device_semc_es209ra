@@ -1,0 +1,45 @@
+diff --git a/JNIHelp.cpp b/JNIHelp.cpp
+index ef4d862..dce17c8 100644
+--- a/JNIHelp.cpp
++++ b/JNIHelp.cpp
+@@ -311,6 +311,40 @@ const char* jniStrError(int errnum, char* buf, size_t buflen) {
+     }
+ }
+ 
++static struct CachedFields {
++    jclass fileDescriptorClass;
++    jmethodID fileDescriptorCtor;
++    jfieldID descriptorField;
++} gCachedFields;
++
++jint JNI_OnLoad(JavaVM* vm, void*) {
++    JNIEnv* env;
++    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
++        ALOGE("JavaVM::GetEnv() failed");
++        abort();
++    }
++
++    gCachedFields.fileDescriptorClass =
++            reinterpret_cast<jclass>(env->NewGlobalRef(env->FindClass("java/io/FileDescriptor")));
++    if (gCachedFields.fileDescriptorClass == NULL) {
++        abort();
++    }
++
++    gCachedFields.fileDescriptorCtor =
++            env->GetMethodID(gCachedFields.fileDescriptorClass, "<init>", "()V");
++    if (gCachedFields.fileDescriptorCtor == NULL) {
++        abort();
++    }
++
++    gCachedFields.descriptorField =
++            env->GetFieldID(gCachedFields.fileDescriptorClass, "descriptor", "I");
++    if (gCachedFields.descriptorField == NULL) {
++        abort();
++    }
++
++    return JNI_VERSION_1_6;
++}
++
+ jobject jniCreateFileDescriptor(C_JNIEnv* env, int fd) {
+     JNIEnv* e = reinterpret_cast<JNIEnv*>(env);
+     static jmethodID ctor = e->GetMethodID(JniConstants::fileDescriptorClass, "<init>", "()V");
