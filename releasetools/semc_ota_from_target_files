@@ -370,10 +370,13 @@ def WriteFullOTAPackage(input_zip, output_zip):
   # change very often.
   script = edify_generator.EdifyGenerator(3, OPTIONS.info_dict)
 
-  metadata = {"post-build": GetBuildProp("ro.build.fingerprint", input_zip),
-              "pre-device": GetBuildProp("ro.product.device", input_zip),
-              "post-timestamp": GetBuildProp("ro.build.date.utc", input_zip),
-              }
+  metadata = {"post-build": GetBuildProp("ro.build.fingerprint",
+                                         OPTIONS.info_dict),
+              "pre-device": GetBuildProp("ro.product.device",
+                                         OPTIONS.info_dict),
+              "post-timestamp": GetBuildProp("ro.build.date.utc",
+                                             OPTIONS.info_dict),
+							}
 
   device_specific = common.DeviceSpecificParams(
       input_zip=input_zip,
@@ -388,8 +391,10 @@ def WriteFullOTAPackage(input_zip, output_zip):
   #  ts = GetBuildProp("ro.build.date.utc", input_zip)
   #  script.AssertOlderBuild(ts)
 
-  AppendAssertions(script, input_zip)
+  AppendAssertions(script, OPTIONS.info_dict)
   device_specific.FullOTA_Assertions()
+  device_specific.FullOTA_InstallBegin()
+
   if OPTIONS.backuptool:
     script.Mount("/system")
     script.RunBackup("backup")
@@ -473,16 +478,16 @@ def LoadSystemFiles(z):
   return out
 
 
-def GetBuildProp(property, z):
-  """Return the fingerprint of the build of a given target-files
-  ZipFile object."""
-  bp = z.read("SYSTEM/build.prop")
-  if not property:
-    return bp
-  m = re.search(re.escape(property) + r"=(.*)\n", bp)
-  if not m:
-    raise common.ExternalError("couldn't find %s in build.prop" % (property,))
-  return m.group(1).strip()
+#def GetBuildProp(property, z):
+#  """Return the fingerprint of the build of a given target-files
+#  ZipFile object."""
+#  bp = z.read("SYSTEM/build.prop")
+#  if not property:
+#    return bp
+#  m = re.search(re.escape(property) + r"=(.*)\n", bp)
+#  if not m:
+#    raise common.ExternalError("couldn't find %s in build.prop" % (property,))
+#  return m.group(1).strip()
 
 
 def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
@@ -549,10 +554,10 @@ def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
       patch_list.append((tf.name, tf, sf, tf.size, common.sha1(d).hexdigest()))
       largest_source_size = max(largest_source_size, sf.size)
 
-  source_fp = GetBuildProp("ro.build.fingerprint", source_zip)
-  target_fp = GetBuildProp("ro.build.fingerprint", target_zip)
-  metadata["pre-build"] = source_fp
-  metadata["post-build"] = target_fp
+#  source_fp = GetBuildProp("ro.build.fingerprint", source_zip)
+#  target_fp = GetBuildProp("ro.build.fingerprint", target_zip)
+#  metadata["pre-build"] = source_fp
+#adb shell  metadata["post-build"] = target_fp
 
   script.Mount("/system")
   script.AssertSomeFingerprint(source_fp, target_fp)
