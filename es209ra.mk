@@ -73,6 +73,7 @@ PRODUCT_COPY_FILES += \
     device/semc/es209ra/prebuilt/bootrec-device:root/sbin/bootrec-device \
     device/semc/es209ra/recovery.fstab:root/recovery.fstab \
 	device/semc/es209ra/prebuilt/fstab.es209ra:root/fstab.es209ra \
+	device/semc/es209ra/recovery/init.rc:root/init.rc \
     device/semc/es209ra/prebuilt/initlogo.rle:root/initlogo.rle
 
 
