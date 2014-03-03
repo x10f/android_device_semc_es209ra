@@ -15,7 +15,7 @@ Synchronize now your repository:
 
     repo sync
 
-Once done you'll need ES209ra specific fieles
+Once done you'll need ES209ra specific files
 
 Create a .repo/local_manifests/local_manifest.xml file and get these lines inside :
 
