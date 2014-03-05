@@ -72,17 +72,19 @@ PRODUCT_COPY_FILES += \
     device/semc/es209ra/prebuilt/bootrec:root/sbin/bootrec \
     device/semc/es209ra/prebuilt/bootrec-device:root/sbin/bootrec-device \
     device/semc/es209ra/recovery.fstab:root/recovery.fstab \
-    device/semc/es209ra/prebuilt/vold.fstab:system/etc/vold.fstab \
+    device/semc/es209ra/prebuilt/fstab.es209ra:root/fstab.es209ra \
     device/semc/es209ra/prebuilt/initlogo.rle:root/initlogo.rle
 
 
 #WIFI modules and configs
 PRODUCT_COPY_FILES += \
-    device/semc/es209ra/prebuilt/10dnsconf:system/etc/init.d/10dnsconf \
-    device/semc/es209ra/prebuilt/10regcode:system/etc/init.d/10regcode \
-    device/semc/es209ra/prebuilt/10hostapconf:system/etc/init.d/10hostapconf \
-    device/semc/es209ra/prebuilt/reg_code:system/etc/wifi/reg_code \
-    device/semc/es209ra/prebuilt/ar6000.ko:root/modules/ar6000.ko
+    device/semc/es209ra/config/10dnsconf:system/etc/init.d/10dnsconf \
+    device/semc/es209ra/config/10regcode:system/etc/init.d/10regcode \
+    device/semc/es209ra/config/10hostapconf:system/etc/init.d/10hostapconf \
+	device/semc/es209ra/config/hostapd.conf:system/etc/wifi/hostapd.conf \
+    device/semc/es209ra/prebuilt/reg_code:system/etc/wifi/reg_code 
+#\
+#    device/semc/es209ra/prebuilt/ar6000.ko:system/lib/modules/ar6000.ko
 
 #recovery resources
 PRODUCT_COPY_FILES += \
@@ -153,8 +155,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     hwui.disable_vsync=true \
     debug.composition.type=mdp \
     debug.sf.hw=1 \
-    persist.sys.usb.config=mass_storage \
-    ro.config.disable_hw_accel=true
+    persist.sys.usb.config=mass_storage,adb \
+    persist.service.adb.enable=1 \
+    sys.usb.config=mass_storage,adb 
 
 
 PRODUCT_PROPERTY_OVERRIDES += \
