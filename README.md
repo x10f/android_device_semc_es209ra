@@ -26,7 +26,7 @@ Create a .repo/local_manifests/local_manifest.xml file and get these lines insid
             	fetch="https://github.com"/>
 
     	<project path="hardware/qcom/display-legacy" name="TOF37/android_hardware_qcom_display-legacy" revision="Kitkat-pmem" remote="tof37github"/>
-    	<project path="hardware/atheros/wifi/libs" name="CMX10/android_hardware_atheros_wifi_libs" revision="cm-10.1" />
+    	<project path="hardware/atheros/wifi/libs" name="TOF37/android_hardware_atheros_wifi_libs" revision="cm-10.1" remote="tof37github"/>
     	<project name="TOF37/android_device_semc_es209ra" path="device/semc/es209ra" revision="EV4.4-pmem" remote="tof37github"/>
     	<project name="TOF37/proprietary_es209ra" path="vendor/semc/es209ra" revision="EV-kitkat" remote="tof37github"/>
     	<project name="TOF37/Kernel-ES209RA-3.0.8" path="kernel/semc/es209ra" revision="Kernel-3.0.8-Pmem-version" remote="tof37github"/>
