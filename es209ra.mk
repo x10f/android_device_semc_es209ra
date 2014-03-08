@@ -69,13 +69,10 @@ PRODUCT_COPY_FILES += \
     device/semc/es209ra/prebuilt/DualMicControl.txt:system/etc/DualMicControl.txt \
     device/semc/es209ra/prebuilt/ueventd.es209ra.rc:root/ueventd.es209ra.rc \
     device/semc/es209ra/prebuilt/hw_config.sh:system/etc/hw_config.sh \
-    device/semc/es209ra/prebuilt/bootrec:root/sbin/bootrec \
-    device/semc/es209ra/prebuilt/bootrec-device:root/sbin/bootrec-device \
     device/semc/es209ra/recovery.fstab:root/recovery.fstab \
 	device/semc/es209ra/prebuilt/fstab.es209ra:root/fstab.es209ra \
 	device/semc/es209ra/recovery/init.rc:root/init.rc \
     device/semc/es209ra/prebuilt/initlogo.rle:root/initlogo.rle
-
 
 #WIFI modules and configs
 PRODUCT_COPY_FILES += \
@@ -89,7 +86,31 @@ PRODUCT_COPY_FILES += \
 
 #recovery resources
 PRODUCT_COPY_FILES += \
-    bootable/recovery/res/images/*:root/res/images/*
+	device/semc/es209ra/prebuilt/res/icon_firmware_error.png:root/res/images/icon_firmware_error.png \
+    device/semc/es209ra/prebuilt/res/icon_firmware_install.png:root/res/images/icon_firmware_install.png \
+    device/semc/es209ra/prebuilt/res/icon_clockwork.png:root/res/images/icon_clockwork.png \
+	device/semc/es209ra/prebuilt/res/stitch.png:root/res/images/stitch.png \
+	bootable/recovery/res/images/erasing_text.png:root/res/images/erasing_text.png \
+	bootable/recovery/res/images/error_text.png:root/res/images/error_text.png \
+	bootable/recovery/res/images/icon_error.png:root/res/images/icon_error.png \
+	bootable/recovery/res/images/icon_installing.png:root/res/images/icon_installing.png \
+    bootable/recovery/res/images/icon_installing_overlay01.png:root/res/images/icon_installing_overlay01.png \
+    bootable/recovery/res/images/icon_installing_overlay02.png:root/res/images/icon_installing_overlay02.png \
+    bootable/recovery/res/images/icon_installing_overlay03.png:root/res/images/icon_installing_overlay03.png \
+    bootable/recovery/res/images/icon_installing_overlay04.png:root/res/images/icon_installing_overlay04.png \
+    bootable/recovery/res/images/icon_installing_overlay05.png:root/res/images/icon_installing_overlay05.png \
+    bootable/recovery/res/images/icon_installing_overlay06.png:root/res/images/icon_installing_overlay06.png \
+    bootable/recovery/res/images/icon_installing_overlay07.png:root/res/images/icon_installing_overlay07.png \
+    bootable/recovery/res/images/indeterminate01.png:root/res/images/indeterminate01.png \
+    bootable/recovery/res/images/indeterminate02.png:root/res/images/indeterminate02.png \
+    bootable/recovery/res/images/indeterminate03.png:root/res/images/indeterminate03.png \
+    bootable/recovery/res/images/indeterminate04.png:root/res/images/indeterminate04.png \
+    bootable/recovery/res/images/indeterminate05.png:root/res/images/indeterminate05.png \
+    bootable/recovery/res/images/indeterminate06.png:root/res/images/indeterminate06.png \
+	bootable/recovery/res/images/installing_text.png:root/res/images/installing_text.png \
+	bootable/recovery/res/images/no_command_text.png:root/res/images/no_command_text.png \
+    bootable/recovery/res/images/progress_empty.png:root/res/images/progress_empty.png \
+    bootable/recovery/res/images/progress_fill.png:root/res/images/progress_fill.png
 
 #Framework permissions
 PRODUCT_COPY_FILES += \
