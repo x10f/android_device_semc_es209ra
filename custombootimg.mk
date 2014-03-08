@@ -5,6 +5,8 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(TARGET_PREBUILT_KERNEL) $(recovery_ramdisk) $(I
 	$(call pretty,"Boot image: $@")
 	$(hide) mkdir -p $(PRODUCT_OUT)/combinedroot/
 	$(hide) device/semc/es209ra/releasetools/prepare_kernel $(TARGET_KERNEL_SOURCE)/arch/arm/configs/$(TARGET_KERNEL_CONFIG) $(PRODUCT_OUT) $(PREBUILT_FOLDER)
+	$(hide) rm -f $(PRODUCT_OUT)/recovery/root/sbin/*
+	$(hide) cp -r $(LOCAL_PATH)/prebuilt/sbin/* $(PRODUCT_OUT)/recovery/root/sbin/
 	$(hide) cp -r $(PRODUCT_OUT)/root/* $(PRODUCT_OUT)/combinedroot/
 	$(hide) cp -r $(PRODUCT_OUT)/recovery/root/sbin/* $(PRODUCT_OUT)/combinedroot/sbin/
 	$(hide) sed -i 's/ro.adb.secure=1//g' $(PRODUCT_OUT)/combinedroot/default.prop

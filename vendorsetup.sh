@@ -17,3 +17,4 @@
 add_lunch_combo es209ra-eng
 add_lunch_combo cm_es209ra-userdebug
 add_lunch_combo es209ra-userdebug
+add_lunch_combo ev_es209ra-eng

@@ -33,7 +33,7 @@
 #define MSM_COPY_HW 1
 #define HWA 1
 #ifdef HWA
-#include "qcom/display-legacy/libgralloc/gralloc_priv.h"
+#include "qcom/display/msm8960/libgralloc/gralloc_priv.h"
 #else
 #include "libhardware/modules/gralloc/gralloc_priv.h"
 #endif
