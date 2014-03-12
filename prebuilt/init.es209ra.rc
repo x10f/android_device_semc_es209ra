@@ -3,6 +3,13 @@ import init.es209ra.usb.rc
 on early-boot
     exec /sbin/bootrec
 
+on init
+    export EXTERNAL_STORAGE /storage/sdcard0
+    mkdir /mnt/media_rw/sdcard0 0700 media_rw media_rw
+    mkdir /storage/sdcard0 0777 root root
+    symlink /storage/sdcard0 /sdcard
+    symlink /storage/sdcard0 /mnt/sdcard
+
 on fs
     # mount mtd partitions
     # Mount /system rw first to give the filesystem a chance to save a checkpoint
@@ -10,12 +17,6 @@ on fs
     mount yaffs2 mtd@system /system ro remount
     mount yaffs2 mtd@userdata /data nosuid nodev
     mount yaffs2 mtd@cache /cache nosuid nodev
-
-on early-init
-    export EXTERNAL_STORAGE /mnt/sdcard
-    mkdir /mnt/sdcard 0000 system system
-    # for backwards compatibility
-    symlink /mnt/sdcard /sdcard
 
 service dhcp-service /system/bin/netcfg wlan0 dhcp
     class main
@@ -44,7 +45,6 @@ on boot
     chmod 770 /data/misc/wifi/sockets
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
-
 
 #    ln -s               /data/misc/wifi/wlan0 /data/system/wpa_supplicant
 #    mkdir               /data/misc/wifi
@@ -119,7 +119,6 @@ on boot
 #    write /sys/bus/platform/drivers/msm_sdcc/msm_sdcc.1/polling 1
 #    write /sys/bus/platform/drivers/msm_sdcc/msm_sdcc.4/polling 1
 
-
 # This property trigger has added to imitiate the previous behavior of "adb root".
 # The adb gadget driver used to reset the USB bus when the adbd daemon exited,
 # and the host side adb relied on this behavior to force it to reconnect with the
@@ -146,6 +145,11 @@ service hci_qcomm_init /system/bin/log -t qcom-bluetooth -p i "hci_qcomm_init se
     group bluetooth net_bt_admin
     disabled
     oneshot
+
+#sdcard daemon
+service fuse_sdcard0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/sdcard0 /storage/sdcard0
+    class late_start
+    disabled
 
 service wlan_mac /system/bin/wlan_mac
     class main

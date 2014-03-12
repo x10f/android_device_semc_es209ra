@@ -1,0 +1,18 @@
+diff --git a/data/etc/platform.xml b/data/etc/platform.xml
+index 29865bb..9d4b14e 100644
+--- a/data/etc/platform.xml
++++ b/data/etc/platform.xml
+@@ -64,11 +64,13 @@
+ 
+     <permission name="android.permission.READ_EXTERNAL_STORAGE" >
+         <group gid="sdcard_r" />
++        <group gid="media_rw" />
+     </permission>
+ 
+     <permission name="android.permission.WRITE_EXTERNAL_STORAGE" >
+         <group gid="sdcard_r" />
+         <group gid="sdcard_rw" />
++        <group gid="media_rw" />
+     </permission>
+ 
+     <permission name="android.permission.ACCESS_ALL_EXTERNAL_STORAGE" >
