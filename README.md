@@ -34,6 +34,10 @@ Re-synchronize now your repository (it will download ES209RA latest sources):
 
 repo sync
 
+Download necessary prebuilts :
+
+vendor/cm/get-prebuilts
+
 Compile:
 . build/envsetup.sh && lunch cm_es209ra-userdebug
 
