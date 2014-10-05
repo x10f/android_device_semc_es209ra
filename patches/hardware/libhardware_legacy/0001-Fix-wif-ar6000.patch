@@ -1,0 +1,20 @@
+diff --git a/wifi/wifi.c b/wifi/wifi.c
+index 80a0e2a..fa4e7c5 100644
+--- a/wifi/wifi.c
++++ b/wifi/wifi.c
+@@ -782,6 +782,15 @@ int wifi_start_supplicant(int p2p_supported)
+     unsigned serial = 0, i;
+ #endif
+ 
++#ifdef WIFI_DRIVER_MODULE_PATH
++    /* The ar6k driver needs the interface up in order to scan! */
++    if (!strncmp(DRIVER_MODULE_NAME, "ar6000", 6)) {
++        ifc_init();
++        ifc_up("wlan0");
++        sleep(2);
++    }
++#endif
++
+     if (p2p_supported) {
+         strcpy(supplicant_name, P2P_SUPPLICANT_NAME);
+         strcpy(supplicant_prop_name, P2P_PROP_NAME);
