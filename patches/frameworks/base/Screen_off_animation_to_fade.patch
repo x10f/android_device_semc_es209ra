@@ -1,0 +1,13 @@
+diff --git a/services/java/com/android/server/power/DisplayPowerController.java b/services/java/com/android/server/power/DisplayPowerController.java
+index 093df06..83791d3 100644
+--- a/services/java/com/android/server/power/DisplayPowerController.java
++++ b/services/java/com/android/server/power/DisplayPowerController.java
+@@ -239,7 +239,7 @@ final class DisplayPowerController {
+     // a stylish electron beam animation instead.
+     private boolean mElectronBeamFadesConfig() {
+         return Settings.System.getInt(mContext.getContentResolver(),
+-                Settings.System.SCREEN_ANIMATION_STYLE, 0) == 1;
++                Settings.System.SCREEN_ANIMATION_STYLE, 0) == 0;
+     }
+ 
+     // True if we should allow showing the screen-off animation
