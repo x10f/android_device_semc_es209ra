@@ -1,19 +1,26 @@
 diff --git a/wifi/wifi.c b/wifi/wifi.c
-index 80a0e2a..fa4e7c5 100644
+index 80a0e2a..eb0932f 100644
 --- a/wifi/wifi.c
 +++ b/wifi/wifi.c
-@@ -782,6 +782,15 @@ int wifi_start_supplicant(int p2p_supported)
+@@ -57,6 +57,7 @@ static int exit_sockets[2];
+ extern int do_dhcp();
+ extern int ifc_init();
+ extern void ifc_close();
++extern int ifc_up(const char *);
+ extern char *dhcp_lasterror();
+ extern void get_dhcp_info();
+ extern int init_module(void *, unsigned long, const char *);
+@@ -782,6 +783,14 @@ int wifi_start_supplicant(int p2p_supported)
      unsigned serial = 0, i;
  #endif
  
-+#ifdef WIFI_DRIVER_MODULE_PATH
 +    /* The ar6k driver needs the interface up in order to scan! */
 +    if (!strncmp(DRIVER_MODULE_NAME, "ar6000", 6)) {
++				ALOGI("early wlan0 interface up for module: %s", DRIVER_MODULE_NAME);
 +        ifc_init();
 +        ifc_up("wlan0");
 +        sleep(2);
 +    }
-+#endif
 +
      if (p2p_supported) {
          strcpy(supplicant_name, P2P_SUPPLICANT_NAME);
