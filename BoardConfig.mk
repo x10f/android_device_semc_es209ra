@@ -28,7 +28,7 @@ ARCH_ARM_HAVE_ARMV7A_BUG := true
 ARCH_ARM_HAVE_NEON := true
 TARGET_CPU_VARIANT := cortex-a8
 
-TARGET_RECOVERY_FSTAB := device/semc/es209ra/recovery.fstab
+TARGET_RECOVERY_FSTAB := device/semc/es209ra/recovery/recovery.fstab
 RECOVERY_FSTAB_VERSION := 2
 
 BOARD_USES_GENERIC_AUDIO := false
@@ -98,13 +98,13 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := es209ra
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 1240
 TARGET_QCOM_GPS_VARIANT := legacy
 
-BOARD_CUSTOM_BOOTIMG_MK := device/semc/es209ra/custombootimg.mk
-TARGET_RECOVERY_PRE_COMMAND := "touch /cache/recovery/boot;sync;"
 
 #Recovery
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_USES_RECOVERY_CHARGEMODE := false
-#BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/semc/es209ra/recovery/recovery_keys.c
+BOARD_CUSTOM_BOOTIMG_MK := device/semc/es209ra/custombootimg.mk
+TARGET_RECOVERY_PRE_COMMAND := "touch /cache/recovery/boot;sync;"
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/semc/es209ra/recovery/recovery_keys.c
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
 BOARD_UMS_LUNFILE := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
 BOARD_SDCARD_INTERNAL_DEVICE := /dev/block/mmcblk0p1
