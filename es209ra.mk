@@ -89,7 +89,6 @@ PRODUCT_COPY_FILES += \
 #recovery resources
 PRODUCT_COPY_FILES += \
     bootable/recovery/res/images/icon_firmware_error.png:root/res/images/icon_firmware_error.png \
-	bootable/recovery/res/images/icon_cid.png:root/res/images/icon_cid.png \
     bootable/recovery/res/images/icon_firmware_install.png:root/res/images/icon_firmware_install.png \
     bootable/recovery/res/images/icon_clockwork.png:root/res/images/icon_clockwork.png \
     bootable/recovery/res/images/icon_error.png:root/res/images/icon_error.png \

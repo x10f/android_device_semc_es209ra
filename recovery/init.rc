@@ -9,6 +9,7 @@ import /init.usb.rc
 import /init.${ro.hardware}.rc
 import /init.trace.rc
 import /init.cm.rc
+import /init.es209ra.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
@@ -31,12 +32,6 @@ on init
 sysclktz 0
 
 loglevel 3
-
-on init
-    export PATH /sbin
-    export ANDROID_ROOT /system
-    export ANDROID_DATA /data
-    export EXTERNAL_STORAGE /sdcard
 
 # Backward compatibility
     symlink /system/etc /etc
@@ -499,7 +494,8 @@ service servicemanager /system/bin/servicemanager
     onrestart restart surfaceflinger
     onrestart restart drm
 
-service vold /sbin/minivold
+service vold /system/bin/vold
+    class core
     socket vold stream 0660 root mount
     ioprio be 2
 
