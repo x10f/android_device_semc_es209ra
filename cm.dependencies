@@ -1,8 +1,10 @@
 [
   {
-    "repository": "android_hardware_sony_DASH",
+    "repository": "CyanogenMod/android_hardware_sony_DASH",
     "target_path": "hardware/somc/dash",
- }, {
+    "revision": "cm-12.0"
+ },
+ {
    "repository": "android_hardware_atheros_wifi_libs",
    "target_path": "hardware/atheros/wifi/libs",
  }
