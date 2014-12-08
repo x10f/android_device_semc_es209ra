@@ -4,7 +4,7 @@ SE Xperia X10
 How to build:
 Initialize repo:
 
-	 repo init -u git://github.com/CyanogenMod/android.git -b cm-12.0
+	 repo init -u git://github.com/androidarmv6/android.git -b cm-12.0
 
 Synchronize now your repository:
 
